@@ -1,0 +1,2 @@
+[console_scripts]
+microdjango-admin = microdjango.core.management:execute_from_command_line
