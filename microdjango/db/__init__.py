@@ -1,3 +1,3 @@
-from .models import Field, ForeignKey, IntegerField, CharField, Model
+from .models import Field, IntegerField, CharField, Model
 
-__all__ = ['IntegerField', 'CharField', 'ForeignKey', 'Model']
+__all__ = ['IntegerField', 'CharField', 'Model']

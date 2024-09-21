@@ -6,6 +6,7 @@ from microdjango.core.management.commands import runserver, startproject
 from microdjango.core.management.commands.makemigrations import makemigrations
 from microdjango.core.management.commands.migrate import migrate
 from microdjango.core.management.commands.startapp import startapp
+from microdjango.core.management.commands.shell import run_shell
 
 DATABASE_NAME = 'db.sqlite3'
 
@@ -61,6 +62,9 @@ def execute_from_command_line(argv=None):
             print("Usage: python manage.py migrate <app_name>")
             return
         migrate(app_name)
+
+    elif command == 'shell':
+        run_shell()
 
     else:
         print(f"Unknown command: {command}")
