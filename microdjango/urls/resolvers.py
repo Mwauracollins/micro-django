@@ -16,16 +16,21 @@ class URLResolver:
         print(f"Resolving path: {path}")
         for pattern in self.urlpatterns:
             print(f"Checking pattern: {pattern}")
-            match = pattern.match(path)
-            if match:
-                if isinstance(pattern.view, (list, tuple)):
-                    # This is an included URLconf
-                    new_path = path[match.end():]
-                    for included_pattern in pattern.view:
-                        sub_match = included_pattern.match(new_path)
+            if isinstance(pattern, Path):
+                match = pattern.match(path)
+                if match:
+                    if callable(pattern.view):
+                        return pattern.view, match.groupdict()
+                    elif isinstance(pattern.view, (list, tuple)):
+                        # This is an included URLconf
+                        sub_resolver = URLResolver(pattern.view)
+                        sub_path = path[match.end():]
+                        sub_match = sub_resolver.resolve(sub_path if sub_path else '/')
                         if sub_match:
-                            return included_pattern.view, sub_match.groupdict()
-                else:
+                            return sub_match
+            elif isinstance(pattern, URLPattern):
+                match = pattern.pattern.match(path)
+                if match:
                     return pattern.view, match.groupdict()
         print("No match found")
         return None, None
@@ -35,10 +40,13 @@ class Path:
         self.route = route
         self.view = view
         self.name = name
-        self.pattern = re.compile(f'^{route}$')
+        self.pattern = re.compile(f'^{route}')  # Remove $ to allow matching of sub-paths
 
     def match(self, path):
         return self.pattern.match(path)
+
+    def __str__(self):
+        return f"Path('{self.route}', {self.view}, name='{self.name}')"
 
 
 def path(route, view, name=None):
@@ -50,6 +58,6 @@ def url(pattern, view):
 
 def include(arg):
     if isinstance(arg, str):
-        return import_module(arg).urlpatterns
-    else:
-        return arg
+        module = import_module(arg)
+        return getattr(module, 'urlpatterns', [])
+    return arg if isinstance(arg, (list, tuple)) else [arg]

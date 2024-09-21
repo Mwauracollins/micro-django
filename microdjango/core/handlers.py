@@ -17,8 +17,13 @@ class MicroDjango:
         print(f"Resolved view: {view}")
         print(f"Resolved kwargs: {kwargs}")
         if view:
-            return view(request, **kwargs)
+            if callable(view):
+                return view(request, **kwargs)
+            else:
+                return HttpResponse("View is not callable", status_code=500)
         return HttpResponse("Not Found", status_code=404)
+    
+    
 class WSGIHandler:
     def __init__(self, application):
         self.application = application
