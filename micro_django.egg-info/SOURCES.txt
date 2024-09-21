@@ -17,6 +17,7 @@ microdjango/core/management/commands/__init__.py
 microdjango/core/management/commands/makemigrations.py
 microdjango/core/management/commands/migrate.py
 microdjango/core/management/commands/runserver.py
+microdjango/core/management/commands/shell.py
 microdjango/core/management/commands/startapp.py
 microdjango/core/management/commands/startproject.py
 microdjango/db/__init__.py
