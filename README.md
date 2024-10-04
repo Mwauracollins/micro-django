@@ -43,4 +43,4 @@ More features coming soon
 This project is licensed under the MIT License.
 
 ## Author
-made by Mwauracollins[mwauracollinss1@gmail.com]. 
+made by Mwauracollins. 
