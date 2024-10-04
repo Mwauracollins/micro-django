@@ -1,11 +1,13 @@
 # Micro-Django
 
-Micro-Django is a simplified version of Django for educational purposes. It implements core Django-like functionality in a minimalistic way to help understand the underlying principles of Django.
+Just implementing django's core functionalities to settle an argument. Do you really need a framework?
 
-## Installation
+## Installation (local)
+Clone the repository first then run
 
 ```
-pip install micro-django
+cd micro-django
+pip install -e .
 ```
 
 ## Quick Start
@@ -34,7 +36,11 @@ pip install micro-django
 - Settings management
 - WSGI application
 - Basic ORM-like model system
+More features coming soon
 
 ## License
 
 This project is licensed under the MIT License.
+
+## Author
+made by Mwauracollins[mwauracollinss1@gmail.com]. 
